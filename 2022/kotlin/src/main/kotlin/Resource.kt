@@ -9,4 +9,11 @@ object Resource {
         return inputFile.readText()
     }
 
+    fun asIntList(inputFile: File): List<Int> {
+        return asList(inputFile).map { it.toInt() }
+    }
+
+    fun asListGroupedByDelimiter(inputFile: File, delimiter: String = "\n\n"): List<String> {
+        return asText(inputFile).split(delimiter)
+    }
 }
