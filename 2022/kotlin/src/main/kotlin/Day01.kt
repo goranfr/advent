@@ -3,16 +3,19 @@ import java.io.File
 class Day01 : Day {
     override val inputFile: String = "Day01.txt"
 
-    override fun Part1(example : Boolean) : Int {
-        val s = Resource.asText(Data(example))
-        val groups = s.split("\n\n")
-        val sumGroups = groups.map {
+    fun elfList(data : String) : List<Int> {
+        val groups = data.split("\n\n")
+        return groups.map {
             it.split("\n").sumOf { it.toInt() }
         }
-        return sumGroups.max()
+    }
+    override fun Part1(example : Boolean) : Int {
+        val data = Resource.asText(Data(example))
+        return elfList(data).max()
     }
 
     override fun Part2(example : Boolean) : Int{
-        TODO("Not yet implemented")
+        val data = Resource.asText(Data(example))
+        return elfList(data).sortedDescending().take(3).sum()
     }
 }

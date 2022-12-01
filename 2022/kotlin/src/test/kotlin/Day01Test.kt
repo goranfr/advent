@@ -16,4 +16,17 @@ class Day01Test {
         assertEquals(75501, answer)
     }
 
+    @Test
+    fun `Part 2 matches example`() {
+        val answer = Day01().Part2(true)
+        assertEquals(45000, answer)
+    }
+
+    @Test
+    fun `Part 2 matches input`() {
+        val answer = Day01().Part2()
+        assertEquals(215594, answer)
+    }
+
+
 }
