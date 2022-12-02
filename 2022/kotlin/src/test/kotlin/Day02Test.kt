@@ -57,6 +57,6 @@ class Day02Test {
     @Test
     fun `Part 2 matches input`() {
         val answer = Day02().part2()
-        assertEquals(0, answer)
+        assertEquals(14416, answer)
     }
 }
