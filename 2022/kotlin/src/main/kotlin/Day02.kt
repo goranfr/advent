@@ -23,7 +23,7 @@ class Day02 : Day {
             'C' to 3, // Scissors
         )
 
-        fun calculateWin(oppMove: Char, playerMove: Char): Int {
+        fun gameScore(oppMove: Char, playerMove: Char): Int {
             return when (oppMove - playerMove) {
                 -1, 2   -> 6
                 0       -> 3
@@ -34,7 +34,7 @@ class Day02 : Day {
 
         fun calculateScore(oppMove: Char, playerMove: Char ): Int {
             val moveScore = values.getValue(playerMove)
-            val winScore = calculateWin(oppMove, playerMove)
+            val winScore = gameScore(oppMove, playerMove)
             return winScore + moveScore
         }
 
