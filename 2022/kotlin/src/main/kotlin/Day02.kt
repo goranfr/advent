@@ -39,7 +39,7 @@ class Day02 : Day {
         }
 
         fun findCorrectMove(oppMove: Char, result: Char): Char {
-            val modifier = ((result - 'A' - 21) % 3) + 1
+            val modifier = ((result.code - 2) % 3) + 1
             val calculateMove = { e: Int -> ((e + modifier) % 3) + 65 }
             return calculateMove(oppMove.code).toChar()
         }
