@@ -39,25 +39,9 @@ class Day02 : Day {
         }
 
         fun findCorrectMove(oppMove: Char, result: Char): Char {
-            // X -> win
-            // Y -> draw
-            // Z -> lose
-            return when (result) {
-                'Y' -> oppMove
-                'X' -> when (oppMove) {
-                    'A' -> 'C'
-                    'B' -> 'A'
-                    'C' -> 'B'
-                    else -> throw IllegalArgumentException("Illegal opponent move '${oppMove}")
-                }
-                'Z' -> when (oppMove) {
-                    'A' -> 'B'
-                    'B' -> 'C'
-                    'C' -> 'A'
-                    else -> throw IllegalArgumentException("Illegal opponent move '${oppMove}")
-                }
-                else -> throw IllegalArgumentException("Illegal result '${result}")
-            }
+            val modifier = ((result - 'A' - 21) % 3) + 1
+            val calculateMove = { e: Int -> ((e + modifier) % 3) + 65 }
+            return calculateMove(oppMove.code).toChar()
         }
     }
 }
