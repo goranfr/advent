@@ -6,7 +6,7 @@ class Day01Test {
 
     @Test
     fun `Part 1 matches example`() {
-        val answer : Int = Day01().part1(true)
+        val answer = Day01().part1(true)
         assertEquals(24_000, answer)
     }
 
