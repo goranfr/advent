@@ -5,15 +5,21 @@ class Day03 : Day {
         val data = Resource.asList(data(example))
         return data
             .map {
-                findCommonItem(it.subSequence(0, it.length / 2),
-                               it.subSequence(it.length / 2, it.length))
+                findCommonItem(
+                    listOf(it.subSequence(0, it.length / 2),
+                           it.subSequence(it.length / 2, it.length))
+                )
             }.sumOf {
-            getCharValue(it)
+            getItemPriority(it)
         }
     }
 
-    override fun part2(example: Boolean) : Int{
-        return 42
+    override fun part2(example: Boolean) : Int {
+        val data = Resource.asList(data(example))
+        return data.chunked(3)
+            .map { findCommonItem(it) }
+            .map { getItemPriority(it)}
+            .sum()
     }
 
     companion object {
@@ -25,13 +31,14 @@ class Day03 : Day {
             return map
         }
 
-        private fun findCommonItem(first: CharSequence, second: CharSequence) : Char? {
-            val f = compartmentMap(first)
-            val s = compartmentMap(second)
-            return f.keys.find { it in s.keys }
+        private fun findCommonItem(listOfCompartments: List<CharSequence>) : Char? {
+            val r = listOfCompartments.map {
+                compartmentMap(it)
+            }.reduce{a, b -> (a.keys.intersect(b.keys).associateWith { 1 }) }
+            return r.keys.first()
         }
 
-        fun getCharValue(c: Char?): Int {
+        fun getItemPriority(c: Char?): Int {
             if (c == null) {
                 return 0
             } else if (c.isUpperCase()) {

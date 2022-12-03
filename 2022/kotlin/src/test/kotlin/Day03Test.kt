@@ -6,13 +6,12 @@ class Day03Test {
 
     @Test
     fun `char value of a is 1`() {
-        assertEquals(1, Day03.getCharValue('a'))
+        assertEquals(1, Day03.getItemPriority('a'))
     }
 
     @Test
     fun `char value of 'B' is 28`() {
-        ('a' to 'z')
-        assertEquals(28, Day03.getCharValue('B'))
+        assertEquals(28, Day03.getItemPriority('B'))
     }
 
     @Test
@@ -24,19 +23,19 @@ class Day03Test {
     @Test
     fun `Part 1 matches input`() {
         val answer = Day03().part1()
-        assertEquals(75_501, answer)
+        assertEquals(8202, answer)
     }
 
     @Test
     fun `Part 2 matches example`() {
         val answer = Day03().part2(true)
-        assertEquals(45_000, answer)
+        assertEquals(70, answer)
     }
 
     @Test
     fun `Part 2 matches input`() {
         val answer = Day03().part2()
-        assertEquals(215_594, answer)
+        assertEquals(2_864, answer)
     }
 
 
