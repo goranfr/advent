@@ -1,8 +1,8 @@
-class Day03 : Day {
+class Day03 (override val example: Boolean = false) : Day  {
     override val inputFile: String = "Day03.txt"
 
-    override fun part1(example: Boolean) : Int {
-        val data = Resource.asList(data(example))
+    override fun part1() : Int {
+        val data = Resource.asList(data())
         return data
             .map {
                 findCommonItem(
@@ -14,8 +14,8 @@ class Day03 : Day {
         }
     }
 
-    override fun part2(example: Boolean) : Int {
-        val data = Resource.asList(data(example))
+    override fun part2() : Int {
+        val data = Resource.asList(data())
         return data.chunked(3)
             .map { findCommonItem(it) }
             .map { getItemPriority(it)}

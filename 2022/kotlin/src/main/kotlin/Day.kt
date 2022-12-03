@@ -2,15 +2,16 @@ import java.io.File
 
 interface Day {
     val inputFile: String
-    fun example(): File {
+    val example: Boolean
+    private fun example(): File {
         return File("src/main/resources/examples/" + inputFile)
     }
-    fun input(): File {
+    private fun input(): File {
         return File("src/main/resources/input/" + inputFile)
     }
 
-    fun data(example : Boolean = false): File = if (example) example() else input()
+    fun data(): File = if (example) example() else input()
 
-    fun part1(example: Boolean = false): Int
-    fun part2(example: Boolean = false): Int
+    fun part1(): Int
+    fun part2(): Int
 }

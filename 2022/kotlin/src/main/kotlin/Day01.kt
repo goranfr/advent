@@ -1,4 +1,4 @@
-class Day01 : Day {
+class Day01 (override val example: Boolean = false) : Day {
     override val inputFile: String = "Day01.txt"
 
     private fun elfList(data: List<String>) : List<Int> {
@@ -6,13 +6,13 @@ class Day01 : Day {
             it.split("\n").sumOf { it.toInt() }
         }
     }
-    override fun part1(example: Boolean) : Int {
-        val data = Resource.asListGroupedByDelimiter(data(example), "\n\n")
+    override fun part1() : Int {
+        val data = Resource.asListGroupedByDelimiter(data(), "\n\n")
         return elfList(data).max()
     }
 
-    override fun part2(example: Boolean) : Int{
-        val data = Resource.asListGroupedByDelimiter(data(example), "\n\n")
+    override fun part2() : Int{
+        val data = Resource.asListGroupedByDelimiter(data(), "\n\n")
         return elfList(data).sortedDescending().take(3).sum()
     }
 }

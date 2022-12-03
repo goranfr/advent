@@ -6,7 +6,7 @@ class DayDAY_NUMBERTest {
 
     @Test
     fun `Part 1 matches example`() {
-        val answer = DayDAY_NUMBER().part1(true)
+        val answer = DayDAY_NUMBER(true).part1()
         assertEquals(-1, answer)
     }
 
@@ -18,7 +18,7 @@ class DayDAY_NUMBERTest {
 
     @Test
     fun `Part 2 matches example`() {
-        val answer = DayDAY_NUMBER().part2(true)
+        val answer = DayDAY_NUMBER(true).part2()
         assertEquals(-1, answer)
     }
 
@@ -27,6 +27,4 @@ class DayDAY_NUMBERTest {
         val answer = DayDAY_NUMBER().part2()
         assertEquals(-1, answer)
     }
-
-
 }

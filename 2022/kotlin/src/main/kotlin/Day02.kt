@@ -1,14 +1,14 @@
-class Day02 : Day {
+class Day02 (override val example: Boolean = false) : Day {
     override val inputFile: String = "Day02.txt"
 
-    override fun part1(example: Boolean) : Int {
-        val data = Resource.asList(data(example))
+    override fun part1() : Int {
+        val data = Resource.asList(data())
         return data.map { it.toCharArray() }
             .sumOf { calculateScore(it[0], it[2] - 23) }
     }
 
-    override fun part2(example: Boolean) : Int{
-        val data = Resource.asList(data(example))
+    override fun part2() : Int{
+        val data = Resource.asList(data())
         return data.map { it.toCharArray() }
             .sumOf { calculateScore(it[0], findCorrectMove(it[0], it[2])) }
     }
