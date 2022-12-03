@@ -7,11 +7,11 @@ day: classes tests resources
 
 classes:
 	@echo "Creating classes."
-	sed 's/Day01/Day${DAY}/g' src/main/kotlin/Day01.kt > src/main/kotlin/Day${DAY}.kt
+	sed 's/DAY_NUMBER/${DAY}/g' templates/DayTemplate.kt > src/main/kotlin/Day${DAY}.kt
 
 tests:
 	@echo "Creating tests."
-	sed 's/Day01/Day${DAY}/g' src/test/kotlin/Day01Test.kt > src/test/kotlin/Day${DAY}Test.kt
+	sed 's/DAY_NUMBER/${DAY}/g' templates/DayTestTemplate.kt > src/test/kotlin/Day${DAY}Test.kt
 
 resources:
 	@echo "Creating resources."
