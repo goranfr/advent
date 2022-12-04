@@ -9,8 +9,7 @@ class Day03 (override val example: Boolean = false) : Day  {
                     listOf(it.subSequence(0, it.length / 2),
                            it.subSequence(it.length / 2, it.length))
                 )
-            }.sumOf {
-            getItemPriority(it)
+            }.sumOf {getItemPriority(it)
         }
     }
 
@@ -18,24 +17,15 @@ class Day03 (override val example: Boolean = false) : Day  {
         val data = Resource.asList(data())
         return data.chunked(3)
             .map { findCommonItem(it) }
-            .map { getItemPriority(it)}
-            .sum()
+            .sumOf { getItemPriority(it) }
     }
 
     companion object {
-        private fun compartmentMap(compartment: CharSequence): Map<Char, Int> {
-            val map = mutableMapOf<Char, Int>()
-            compartment.forEach {
-                map[it] = map.getOrDefault(it, 0) + 1
-            }
-            return map
-        }
 
         private fun findCommonItem(listOfCompartments: List<CharSequence>) : Char? {
-            val r = listOfCompartments.map {
-                compartmentMap(it)
-            }.reduce{a, b -> (a.keys.intersect(b.keys).associateWith { 1 }) }
-            return r.keys.first()
+            return listOfCompartments.map { it.toSet() }
+                .reduce {a , b -> a.intersect(b)}
+                .first()
         }
 
         fun getItemPriority(c: Char?): Int {
