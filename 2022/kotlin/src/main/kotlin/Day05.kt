@@ -1,23 +1,25 @@
 class Day05(override val example: Boolean = false) : Day {
     override val inputFile: String = "Day05.txt"
-    override fun part1() : String {
-        val data = Resource.asListGroupedByDelimiter(data(), "\n\n")
-        val stackData = data[0]
-        val instructionData = data[1]
-
-        val stacks = stackData.split("\n")
+    private val instructionRegex = Regex("""move (\d+) from (\d+) to (\d+)""")
+    fun parseCrates(stackInput: String): Stacks {
+        return stackInput.split("\n")
             .reversed()
             .drop(1)
             .map {
                 it.filterIndexed { index, _ -> (index % 4) - 1 == 0 }
-                .mapIndexed { index, char -> Pair(index + 1, char)}
-                .filter { it.second != ' '} }
+                    .mapIndexed { index, char -> Pair(index + 1, char)}
+                    .filter { it.second != ' '} }
             .flatten()
             .groupBy { it.first }
             .map { it.value.map { it.second } }
             .mapIndexed { index, list -> Pair(index + 1, ArrayDeque(list)) }
             .toMap()
-        val instructionRegex = Regex("""move (\d+) from (\d+) to (\d+)""")
+    }
+    override fun part1() : String {
+        val data = Resource.asListGroupedByDelimiter(data(), "\n\n")
+        val stacks = parseCrates(data[0])
+        val instructionData = data[1]
+
         instructionRegex.findAll(instructionData)
             .forEach { stacks.moveCrates(
                 it.groupValues[2].toInt(),
@@ -29,8 +31,18 @@ class Day05(override val example: Boolean = false) : Day {
     }
 
     override fun part2() : String {
-        val data = Resource.asList(data())
-        TODO("Not Implemented")
+        val data = Resource.asListGroupedByDelimiter(data(), "\n\n")
+        val stacks = parseCrates(data[0])
+        val instructionData = data[1]
+        instructionRegex.findAll(instructionData)
+            .forEach {
+                stacks.moveMultipleCrates(
+                    it.groupValues[2].toInt(),
+                    it.groupValues[3].toInt(),
+                    it.groupValues[1].toInt()
+                )
+            }
+        return stacks.values.map { it.last() }.joinToString("")
     }
 }
 
@@ -44,7 +56,15 @@ fun Stacks.moveTopCrate(from: Int, to: Int) {
 }
 
 fun Stacks.moveCrates(from: Int, to: Int, n: Int = 1) {
-    val fromStack = this.get(from)!!
-    val toStack = this.get(to)!!
     repeat(n) { this.moveTopCrate(from, to) }
+}
+
+fun Stacks.moveMultipleCrates(from: Int, to: Int, n: Int = 1) {
+    var fromStack = this.get(from)!!
+    val toStack = this.get(to)!!
+
+    val crates = fromStack.subList(fromStack.size - n, fromStack.size)
+    toStack.addAll(crates)
+
+    repeat(n) { fromStack.removeLast() }
 }
