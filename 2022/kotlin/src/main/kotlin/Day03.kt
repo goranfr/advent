@@ -3,20 +3,20 @@ class Day03 (override val example: Boolean = false) : Day  {
 
     override fun part1() : Int {
         val data = Resource.asList(data())
-        return data
-            .map {
-                findCommonItem(
-                    listOf(it.subSequence(0, it.length / 2),
-                           it.subSequence(it.length / 2, it.length))
+        return data.mapNotNull {
+            findCommonItem(
+                listOf(
+                    it.subSequence(0, it.length / 2),
+                    it.subSequence(it.length / 2, it.length)
                 )
-            }.sumOf {getItemPriority(it)
+            )}
+            .sumOf {getItemPriority(it)
         }
     }
 
     override fun part2() : Int {
         val data = Resource.asList(data())
-        return data.chunked(3)
-            .map { findCommonItem(it) }
+        return data.chunked(3).mapNotNull { findCommonItem(it) }
             .sumOf { getItemPriority(it) }
     }
 
@@ -28,16 +28,13 @@ class Day03 (override val example: Boolean = false) : Day  {
                 .first()
         }
 
-        fun getItemPriority(c: Char?): Int {
-            if (c == null) {
-                return 0
-            } else if (c.isUpperCase()) {
+        fun getItemPriority(c: Char): Int {
+            if (c.isUpperCase()) {
                 return c - 'A' + 1 + 26
             } else if (c.isLowerCase()) {
                 return c - 'a' + 1
             }
             return 0
-
         }
     }
 }
