@@ -1,18 +1,20 @@
 class Day06(override val example: Boolean = false) : Day {
     override val inputFile: String = "Day06.txt"
+    private fun indexOfFirstUniqueSubstring(data: String, length: Int): Int {
+        return data.withIndex()
+            .windowed(length)
+            .dropWhile { it.map { it.value }.toSet().size < length }
+            .map { it.last() }
+            .first().index + 1
+    }
     override fun part1() : Int {
         val data = Resource.asText(data())
-        println(data)
-        return data.withIndex()
-            .windowed(4)
-            .dropWhile {it.map{it.value}.toSet().size < 4}
-            .drop(4)
-            .first()
-            .first().index
+        return indexOfFirstUniqueSubstring(data, 4)
     }
 
     override fun part2() : Int{
-        val data = Resource.asList(data())
-        TODO("Not Implemented")
+        val data = Resource.asText(data())
+        return indexOfFirstUniqueSubstring(data, 14)
     }
+
 }
