@@ -19,12 +19,12 @@ class Day07Test {
     @Test
     fun `Part 2 matches example`() {
         val answer = Day07(true).part2()
-        assertEquals(-1, answer)
+        assertEquals(24933642, answer)
     }
 
     @Test
     fun `Part 2 matches input`() {
         val answer = Day07().part2()
-        assertEquals(-1, answer)
+        assertEquals(9847279, answer)
     }
 }

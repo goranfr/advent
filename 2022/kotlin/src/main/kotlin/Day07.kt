@@ -1,39 +1,58 @@
 class Day07(override val example: Boolean = false) : Day {
     override val inputFile: String = "Day07.txt"
+
     override fun part1() : Int {
-        val data = Resource.asList(data())
-        val root: Node<FileSystemObject> = Node(Directory("/"))
-        data.map {
-                when (it.startsWith("$")) {
-                    true -> when (it.startsWith("$ cd")) {
-                        true -> ChangeDirCommand(it.subSequence(5, it.length).toString())
-                        false -> ListCommand() }
-                    false -> when (it.startsWith("dir")) {
-                        true -> Directory(it.subSequence(4, it.length).toString())
-                        false -> File(it)
-                    } } }
-            .drop(1)
-            .fold(root) { acc, e ->
-                when (e) {
-                    is ListCommand -> acc
-                    is ChangeDirCommand -> {
-                        when (e.args) {
-                            ".." -> acc.parent!!
-                            else -> acc.children.find {it.value.name == e.args}!! } }
-                    is Directory -> acc.add(e)
-                    is File -> acc.add(e)
-                    else -> throw IllegalArgumentException(e.toString())
-                }
-            }
-        return root.traverse()
+        val tree = makeDirectoryTree(Resource.asList(data()))
+        return tree.traverse()
             .filter { it.value is Directory }
-            .filter { it.size() < 100000 }
+            .filter { it.size() < 100_000 }
             .sumOf{it.size()}
     }
 
     override fun part2() : Int{
-        val data = Resource.asList(data())
-        TODO("Not Implemented")
+        val tree = makeDirectoryTree(Resource.asList(data()))
+        val totalDiskSpace = 70_000_000
+        val totalFreeSpaceNeeded = 30_000_000
+        val unusedDiskSpace = totalDiskSpace - tree.size()
+
+        return tree.traverse()
+            .filter { it.value is Directory }
+            .filter { it.size() + unusedDiskSpace > totalFreeSpaceNeeded  }
+            .sortedBy { it.size() }
+            .first().size()
+    }
+    companion object {
+        fun makeDirectoryTree(data: List<String>): Node<FileSystemObject> {
+            val root: Node<FileSystemObject> = Node(Directory("/"))
+            data.map {
+                when (it.startsWith("$")) {
+                    true -> when (it.startsWith("$ cd")) {
+                        true -> ChangeDirCommand(it.subSequence(5, it.length).toString())
+                        false -> ListCommand()
+                    }
+
+                    false -> when (it.startsWith("dir")) {
+                        true -> Directory(it.subSequence(4, it.length).toString())
+                        false -> File(it)
+                    } } }
+                .drop(1)
+                .fold(root) { acc, e ->
+                    when (e) {
+                        is ListCommand -> acc
+                        is ChangeDirCommand -> {
+                            when (e.args) {
+                                ".." -> acc.parent!!
+                                else -> acc.children.find { it.value.name == e.args }!!
+                            }
+                        }
+
+                        is Directory -> acc.add(e)
+                        is File -> acc.add(e)
+                        else -> throw IllegalArgumentException(e.toString())
+                    }
+                }
+            return root
+        }
     }
 }
 
