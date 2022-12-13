@@ -17,7 +17,7 @@ object Resource {
         return asText(inputFile).split(delimiter)
     }
 
-    fun <T> Resource.asGrid(inputFile: File, delimiter: String? = null, transform: (String) -> T?): Grid<T?> {
+    fun <T> Resource.asGrid(inputFile: File, delimiter: String? = null, transform: (String) -> T): Grid<T> {
         return if (delimiter == null) {
             asList(inputFile).map { it.toCharArray().map { it.toString() }.map { transform(it) } }
         } else {

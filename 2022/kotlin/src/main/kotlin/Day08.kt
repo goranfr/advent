@@ -1,5 +1,3 @@
-import Day08.Companion.visibilities
-import Day08.Companion.visibility
 import Resource.asGrid
 
 class Day08(override val example: Boolean = false) : Day {
@@ -13,14 +11,60 @@ class Day08(override val example: Boolean = false) : Day {
 
     override fun part2() : Int{
         val data = Resource.asGrid(data()) {it.toInt() }
-
-
+        return data.scenicScores().max()
     }
     companion object {
         fun List<Int?>.visibility(): List<Boolean> {
             return this.mapIndexed { index, e ->
                 (e != null) && ((index == 0)
                                 || subList(0, index).none { (it ?: 0) >= e })
+            }
+        }
+
+        fun viewingDistanceInSingleDirection(trees: List<Int>): Int {
+            if (trees.isEmpty()) return 0
+            val height = trees.first()
+            val distance = trees.drop(1).takeWhile { it < height }.size
+            // return distance
+            return if (distance == trees.size - 1) distance else distance + 1
+        }
+
+        private fun List<Int>.maxIndex(): Int = this.indices.maxBy { this[it] }
+        fun Grid<Int>.max(): Int {
+            return this.map {
+                val maxIndex = it.maxIndex()
+                Pair(it[maxIndex], it.maxIndex())
+            }.fold(Pair(-1, -1)) { acc, pair: Pair<Int, Int> ->
+                run {
+                    if (pair.first > acc.first) {
+                        pair
+                    } else {
+                        acc
+                    }
+                }
+            }.first
+        }
+
+        fun Grid<Int>.getSubList(dir: Direction, index: Pair<Int, Int>): List<Int> {
+            return when (dir) {
+                Direction.NORTH -> this.transpose()[index.second].subList(0, index.first + 1).reversed()
+                Direction.SOUTH -> this.transpose()[index.second].subList(index.first, this[index.second].size)
+                Direction.EAST -> this[index.first].subList(index.second, this[index.first].size)
+                Direction.WEST -> this[index.first].subList(0, index.second + 1).reversed()
+            }
+        }
+        private fun Grid<Int>.scenicScoreOfPoint(index: Pair<Int, Int>): Int {
+            val viewingDistances = Direction.values().map {
+                viewingDistanceInSingleDirection(this.getSubList(it, index))
+            }
+            return viewingDistances.reduce { acc, i -> acc * i }
+        }
+
+        fun Grid<Int>.scenicScores(): Grid<Int> {
+            return this.mapIndexed { rowIndex, list ->
+                list.mapIndexed { colIndex, _ ->
+                    this.scenicScoreOfPoint(Pair(rowIndex, colIndex))
+                }
             }
         }
 
