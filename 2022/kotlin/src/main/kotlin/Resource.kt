@@ -5,6 +5,10 @@ object Resource {
         return inputFile.readLines()
     }
 
+    fun <T> asList(inputFile: File, transform: (String) -> T): List<T> {
+        return asList(inputFile).map { transform (it ) }
+    }
+
     fun asText(inputFile: File): String {
         return inputFile.readText()
     }
