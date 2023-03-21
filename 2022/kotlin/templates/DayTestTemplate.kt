@@ -7,7 +7,7 @@ class DayDAY_NUMBERTest {
         @Test
         fun `Part 1 matches example`() {
             val answer = DayDAY_NUMBER(true).part1()
-            Assertions.assertEquals(13, answer)
+            Assertions.assertEquals(-1, answer)
         }
 
         @Test

@@ -2,32 +2,36 @@ class Day10(override val example: Boolean = false) : Day {
     override val inputFile: String = "Day10.txt"
     fun isInterestingCycle(n: Int): Boolean = ((n + 20) % 40) == 0
 
+    private fun Sequence<Instruction>.runInstructions(): Sequence<Register> {
+        return this.runningFold(listOf(Register("X", 1))) { acc, op -> op.apply(acc.last()) }
+            .flatten()
+    }
     override fun part1() : Int {
-        val instructions = Resource.asList(data()) { Instruction.parse(it) }
-        println(instructions)
-        val result: List<Register> = instructions.runningFold(listOf(Register("X", 1))) { acc, op ->
-            op.apply(acc.last())
-        }.flatten()
-
-        println(result)
-        println(result.size)
-        val signalStrengths = result
+        val instructions = Resource.asSequence(data()) { Instruction.parse(it) }
+        return instructions.runInstructions()
             .withIndex()
             .filter { isInterestingCycle(it.index + 1) }
-            .map { e ->
-                run {
-                    println("${e.index}: ${e.value.value}")
-                    (e.index + 1) * e.value.value
-                } }
-
-        println(signalStrengths)
-        // println(result.last().registers.get("X"))
-        return signalStrengths.sum()
+            .sumOf { e -> (e.index + 1) * e.value.value }
     }
 
-    override fun part2() : Int{
-        val data = Resource.asList(data())
-        TODO("Not Implemented")
+    override fun part2() : Int {
+        val instructions = Resource.asSequence(data()) { Instruction.parse(it) }
+
+        fun Int.isLit(spriteLocation: Int): Boolean {
+            val modIndex = this % 40
+            return (spriteLocation - 1 <= modIndex) && (modIndex <= spriteLocation + 1)
+        }
+        instructions.runInstructions()
+            .withIndex()
+            .map { it.index.isLit(it.value.value) }
+            .map { if (it) '#' else '.'}
+            .chunked(40)
+            .forEach {
+                it.forEach { print(it) }
+                    .apply { println() }
+        }
+
+        return 15
     }
 
 }

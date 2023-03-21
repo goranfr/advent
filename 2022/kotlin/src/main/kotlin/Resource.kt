@@ -6,9 +6,12 @@ object Resource {
     }
 
     fun <T> asList(inputFile: File, transform: (String) -> T): List<T> {
-        return asList(inputFile).map { transform (it ) }
+        return asList(inputFile).map { transform(it) }
     }
 
+    fun asSequence(inputFile: File): Sequence<String> = inputFile.bufferedReader().lineSequence()
+
+    fun <T> asSequence(inputFile: File, transform: (String) -> T): Sequence<T> = asSequence(inputFile).map { transform(it) }
     fun asText(inputFile: File): String {
         return inputFile.readText()
     }
@@ -32,13 +35,13 @@ object Resource {
 typealias Grid<T> = List<List<T>>
 fun <T> Grid<T>.get(row: Int, col: Int) = this.getOrNull(row)?.getOrNull(col)
 fun <T> Grid<T>.transpose(): Grid<T> {
+    val columnIndices = this.indices
 
     val maxRowSize = this.maxOf { it.size }
     val rowIndices = 0 until maxRowSize
-
-    return this.indices.map { columnIndex ->
-        rowIndices.map { rowIndex ->
-            this.get(rowIndex).get(columnIndex)
+    return rowIndices.map { rowIndex ->
+        columnIndices.map { columnIndex ->
+            this.get(columnIndex).get(rowIndex)
         }
     }
 }
