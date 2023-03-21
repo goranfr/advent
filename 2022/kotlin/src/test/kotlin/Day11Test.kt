@@ -24,13 +24,13 @@ class Day11Test {
         @Test
         fun `Part 2 matches example`() {
             val answer = Day11(true).part2()
-            Assertions.assertEquals(-1, answer)
+            Assertions.assertEquals(2713310158L, answer)
         }
 
         @Test
         fun `Part 2 matches input`() {
             val answer = Day11().part2()
-            Assertions.assertEquals(-1, answer)
+            Assertions.assertEquals(17408399184, answer)
         }
     }
 }
