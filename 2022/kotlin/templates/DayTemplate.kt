@@ -5,7 +5,7 @@ class DayDAY_NUMBER(override val example: Boolean = false) : Day {
         TODO("Not Implemented")
     }
 
-    override fun part2() : Int{
+    override fun part2() : Int {
         val data = Resource.asList(data())
         TODO("Not Implemented")
     }
