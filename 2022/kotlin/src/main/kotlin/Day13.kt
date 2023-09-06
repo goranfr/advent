@@ -1,3 +1,5 @@
+import common.Resource
+
 class Day13(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day13.txt"
 

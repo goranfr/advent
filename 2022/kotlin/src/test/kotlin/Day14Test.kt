@@ -5,6 +5,7 @@ import arrow.core.Either.Right
 import arrow.core.left
 import arrow.core.right
 import common.Point
+import common.Resource
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

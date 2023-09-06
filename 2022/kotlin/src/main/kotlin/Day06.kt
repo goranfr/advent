@@ -1,3 +1,5 @@
+import common.Resource
+
 class Day06(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day06.txt"
     private fun indexOfFirstUniqueSubstring(data: String, length: Int): Int {

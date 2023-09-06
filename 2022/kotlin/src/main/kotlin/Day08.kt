@@ -1,4 +1,7 @@
-import Resource.asGrid
+import common.Grid
+import common.Resource
+import common.Resource.asGrid
+import common.transpose
 
 class Day08(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day08.txt"

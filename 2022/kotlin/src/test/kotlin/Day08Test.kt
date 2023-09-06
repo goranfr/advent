@@ -2,9 +2,10 @@ import Day08.Companion.visibility
 import Day08.Companion.visibilityFromSingleDirection
 import Day08.Companion.Direction
 import Day08.Companion.getSubList
-import Day08.Companion.max
 import Day08.Companion.scenicScores
 import Day08.Companion.viewingDistanceInSingleDirection
+import common.get
+import common.transpose
 import org.junit.Assert.assertEquals
 import org.junit.jupiter.api.*
 

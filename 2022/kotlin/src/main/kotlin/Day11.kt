@@ -1,3 +1,5 @@
+import common.Resource
+
 class Day11(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day11.txt"
     private fun parseMonkey(string: String): MatchResult? {

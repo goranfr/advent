@@ -1,3 +1,5 @@
+import common.Resource
+
 class Day10(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day10.txt"
     fun isInterestingCycle(n: Int): Boolean = ((n + 20) % 40) == 0

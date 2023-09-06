@@ -4,6 +4,7 @@ import arrow.core.Either.Left
 import arrow.core.Either.Right
 import arrow.core.None
 import common.Point
+import common.Resource
 
 
 class Day14(override val isExample: Boolean = false) : Day {

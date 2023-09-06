@@ -1,3 +1,5 @@
+import common.Grid
+import common.transpose
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

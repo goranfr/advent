@@ -1,5 +1,6 @@
 
-import Resource.asGrid
+import common.Resource
+import common.Resource.asGrid
 import java.util.*
 
 class Day12(override val isExample: Boolean = false) : Day {
