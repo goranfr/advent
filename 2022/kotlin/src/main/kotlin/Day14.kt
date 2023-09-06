@@ -9,12 +9,32 @@ import common.Point
 class Day14(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day14.txt"
     override fun part1() : Int {
-        val sand = SandContainer(Resource.asList(data).map { Line.of(it) })
-        var currentContainer = sand.copy()
+        var container = SandContainer(Resource.asList(data).map { Line.of(it) })
         do {
-            when (val s = currentContainer.drop()) {
-                is Left -> return currentContainer.sand.size
-                is Right -> currentContainer = currentContainer.copy(sand = currentContainer.sand + s.value)
+            when (val s = container.drop()) {
+                is Left -> return container.sand.size
+                is Right -> container = container.copy(sand = container.sand + s.value)
+            }
+        } while (true)
+    }
+
+    override fun part2() : Int {
+        val input = SandContainer(Resource.asList(data).map { Line.of(it) })
+
+        val floorY = input.max.y + 2
+        val floorXMin = 500 - floorY
+        val floorXMax = 500 + floorY
+
+        val floor = "" + floorXMin + "," + floorY + " -> " + floorXMax + "," + floorY
+
+        var container = input.copy(lines = input.lines + Line.of(floor))
+        do {
+            when (val s = container.drop()) {
+                is Left -> return -1
+                is Right -> when (s.value) {
+                    Point(500, 0) -> return container.sand.size + 1 // +1 to account for the last dropped sand
+                    else -> container = container.copy(sand = container.sand + s.value)
+                }
             }
         } while (true)
     }
@@ -41,7 +61,7 @@ class Day14(override val isExample: Boolean = false) : Day {
         }
 
         private val points: List<Point> = lines.flatMap { e -> e.points }
-        val min = points.let { Point(it.minOf { p -> p.x }, it.minOf { p -> p.y }) }
+        val min = points.let { Point(it.minOf { p -> p.x }, 0) }
         val max = points.let { Point(it.maxOf { p -> p.x }, it.maxOf { p -> p.y }) }
 
         fun step(position: Point): Either<Point, Point> {
@@ -98,8 +118,4 @@ class Day14(override val isExample: Boolean = false) : Day {
         fun containsAll(elements: Collection<Point>): Boolean = elements.map { this.contains(it) }.all { it }
     }
 
-    override fun part2() : Int {
-        val data = Resource.asList(data)
-        TODO("Not Implemented")
-    }
 }
