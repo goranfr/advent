@@ -10,6 +10,7 @@ interface Day {
         return File("src/main/resources/input/" + inputFile)
     }
 
+    // todo: as getter
     fun data(): File = if (example) example() else input()
 
     fun part1(): Any
