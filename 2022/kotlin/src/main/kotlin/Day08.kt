@@ -1,16 +1,16 @@
 import Resource.asGrid
 
-class Day08(override val example: Boolean = false) : Day {
+class Day08(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day08.txt"
 
     override fun part1() : Int {
-        return Resource.asGrid(data()) { it.toInt() }
+        return Resource.asGrid(data) { it.toInt() }
             .visibilities()
             .sumOf { it.count { it } }
     }
 
     override fun part2() : Int{
-        val data = Resource.asGrid(data()) {it.toInt() }
+        val data = Resource.asGrid(data) {it.toInt() }
         return data.scenicScores().max()
     }
     companion object {

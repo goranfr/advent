@@ -1,4 +1,4 @@
-class Day10(override val example: Boolean = false) : Day {
+class Day10(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day10.txt"
     fun isInterestingCycle(n: Int): Boolean = ((n + 20) % 40) == 0
 
@@ -7,7 +7,7 @@ class Day10(override val example: Boolean = false) : Day {
             .flatten()
     }
     override fun part1() : Int {
-        val instructions = Resource.asSequence(data()) { Instruction.parse(it) }
+        val instructions = Resource.asSequence(data) { Instruction.parse(it) }
         return instructions.runInstructions()
             .withIndex()
             .filter { isInterestingCycle(it.index + 1) }
@@ -15,7 +15,7 @@ class Day10(override val example: Boolean = false) : Day {
     }
 
     override fun part2() : Int {
-        val instructions = Resource.asSequence(data()) { Instruction.parse(it) }
+        val instructions = Resource.asSequence(data) { Instruction.parse(it) }
 
         fun Int.isLit(spriteLocation: Int): Boolean {
             val modIndex = this % 40

@@ -1,11 +1,11 @@
-import java.lang.IllegalArgumentException
+
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
-class Day09(override val example: Boolean = false) : Day {
+class Day09(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day09.txt"
     override fun part1() : Int {
-        val data = Resource.asList(data()) { parseInputLine(it) }
+        val data = Resource.asList(data) { parseInputLine(it) }
         val result = applyMoves(data)
         return result.points.size
     }
@@ -17,7 +17,7 @@ class Day09(override val example: Boolean = false) : Day {
     }
 
     override fun part2() : Int{
-        val data = Resource.asList(data())
+        val data = Resource.asList(data)
         TODO("Not Implemented")
     }
 

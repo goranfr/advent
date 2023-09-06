@@ -1,4 +1,4 @@
-class Day05(override val example: Boolean = false) : Day {
+class Day05(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day05.txt"
     private val instructionRegex = Regex("""move (\d+) from (\d+) to (\d+)""")
     fun parseCrates(stackInput: String): Stacks {
@@ -16,7 +16,7 @@ class Day05(override val example: Boolean = false) : Day {
             .toMap()
     }
     override fun part1() : String {
-        val data = Resource.asListGroupedByDelimiter(data(), "\n\n")
+        val data = Resource.asListGroupedByDelimiter(data, "\n\n")
         val stacks = parseCrates(data[0])
         val instructionData = data[1]
 
@@ -31,7 +31,7 @@ class Day05(override val example: Boolean = false) : Day {
     }
 
     override fun part2() : String {
-        val data = Resource.asListGroupedByDelimiter(data(), "\n\n")
+        val data = Resource.asListGroupedByDelimiter(data, "\n\n")
         val stacks = parseCrates(data[0])
         val instructionData = data[1]
         instructionRegex.findAll(instructionData)

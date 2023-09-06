@@ -1,4 +1,4 @@
-class Day04(override val example: Boolean = false) : Day {
+class Day04(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day04.txt"
 
     private fun makePairList(data: List<String>): List<List<List<Int>>> {
@@ -6,7 +6,7 @@ class Day04(override val example: Boolean = false) : Day {
     }
 
     override fun part1() : Int {
-        val data = makePairList(Resource.asList(data()))
+        val data = makePairList(Resource.asList(data))
         return data.filter { anyContainedInOther(it[0], it[1]) }.size
     }
 
@@ -28,7 +28,7 @@ class Day04(override val example: Boolean = false) : Day {
     }
 
     override fun part2() : Int{
-        val data = makePairList(Resource.asList(data()))
+        val data = makePairList(Resource.asList(data))
         return data.filter{ isAnyOverlap(it[0], it[1]) }.size
     }
 }

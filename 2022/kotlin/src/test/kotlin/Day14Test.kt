@@ -81,8 +81,8 @@ class Day14Test {
         
         @Test
         fun `example input parses into correct lines`() {
-            val day = Day14(example = true)
-            val linelist = Resource.asList(day.data()).map { Day14.Line.of(it) }
+            val day = Day14(isExample = true)
+            val linelist = Resource.asList(day.data).map { Day14.Line.of(it) }
             assertEquals(5, linelist.first().points.size)
             assertEquals(20, linelist.map { it.points.size }.sum())
             val points = setOf(

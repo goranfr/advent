@@ -6,10 +6,10 @@ import arrow.core.None
 import common.Point
 
 
-class Day14(override val example: Boolean = false) : Day {
+class Day14(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day14.txt"
     override fun part1() : Int {
-        val sand = SandContainer(Resource.asList(data()).map { Line.of(it) })
+        val sand = SandContainer(Resource.asList(data).map { Line.of(it) })
         var currentContainer = sand.copy()
         do {
             when (val s = currentContainer.drop()) {
@@ -99,7 +99,7 @@ class Day14(override val example: Boolean = false) : Day {
     }
 
     override fun part2() : Int {
-        val data = Resource.asList(data())
+        val data = Resource.asList(data)
         TODO("Not Implemented")
     }
 }

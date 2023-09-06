@@ -1,4 +1,4 @@
-class Day11(override val example: Boolean = false) : Day {
+class Day11(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day11.txt"
     private fun parseMonkey(string: String): MatchResult? {
         val match =  """Monkey (\d+):
@@ -63,7 +63,7 @@ class Day11(override val example: Boolean = false) : Day {
         }
     }
     override fun part1() : Long {
-        val data = Resource.asText(data()).split("\n\n").map { parseMonkey(it) }
+        val data = Resource.asText(data).split("\n\n").map { parseMonkey(it) }
         val monkeys = data.filterNotNull()
             .map { Monkey.of(it) }
 
@@ -81,7 +81,7 @@ class Day11(override val example: Boolean = false) : Day {
     }
 
     override fun part2() : Long {
-        val data = Resource.asText(data()).split("\n\n").map { parseMonkey(it) }
+        val data = Resource.asText(data).split("\n\n").map { parseMonkey(it) }
         val monkeys = data.filterNotNull()
             .map { Monkey.of(it) }
 

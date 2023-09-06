@@ -1,4 +1,4 @@
-class Day13(override val example: Boolean = false) : Day {
+class Day13(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day13.txt"
 
     private sealed class Packet: Comparable<Packet> {
@@ -71,7 +71,7 @@ class Day13(override val example: Boolean = false) : Day {
     }
 
     override fun part1() : Int {
-        return Resource.asSequence(data())
+        return Resource.asSequence(data)
             .filter { it.isNotBlank() }
             .map { Packet.of(it) }
             .chunked(2)
@@ -82,7 +82,7 @@ class Day13(override val example: Boolean = false) : Day {
     override fun part2(): Int {
         val dividerPackets = listOf(Packet.of("[[2]]"), Packet.of("[[6]]"))
 
-        return (Resource.asSequence(data())
+        return (Resource.asSequence(data)
             .filter { it.isNotBlank() }
             .map { Packet.of(it) } + dividerPackets)
             .sorted()

@@ -2,13 +2,13 @@
 import Resource.asGrid
 import java.util.*
 
-class Day12(override val example: Boolean = false) : Day {
+class Day12(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day12.txt"
 
     fun parseHeightMap(): HeightMap {
         var start: Point? = null
         var end: Point? = null
-        val m = Resource.asGrid(data(), "") { it }
+        val m = Resource.asGrid(data, "") { it }
             .map { it.filter{ it.isNotEmpty() } }
             .flatMapIndexed { yIndex, yIt ->
                 yIt.mapIndexed { xIndex, xIt ->

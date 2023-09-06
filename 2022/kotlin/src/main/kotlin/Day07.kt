@@ -1,8 +1,8 @@
-class Day07(override val example: Boolean = false) : Day {
+class Day07(override val isExample: Boolean = false) : Day {
     override val inputFile: String = "Day07.txt"
 
     override fun part1() : Int {
-        val tree = makeDirectoryTree(Resource.asList(data()))
+        val tree = makeDirectoryTree(Resource.asList(data))
         return tree.traverse()
             .filter { it.value is Directory }
             .filter { it.size() < 100_000 }
@@ -10,7 +10,7 @@ class Day07(override val example: Boolean = false) : Day {
     }
 
     override fun part2() : Int{
-        val tree = makeDirectoryTree(Resource.asList(data()))
+        val tree = makeDirectoryTree(Resource.asList(data))
         val totalDiskSpace = 70_000_000
         val totalFreeSpaceNeeded = 30_000_000
         val unusedDiskSpace = totalDiskSpace - tree.size()
