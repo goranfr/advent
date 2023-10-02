@@ -51,5 +51,12 @@ data class Point(val x: Int, val y: Int) {
         return abs(other.x - x) + abs(other.y - y)
     }
 
+    val neighbors: Set<Point>
+        get() = setOf(
+            Point(x - 1, y),
+            Point(x + 1, y),
+            Point(x, y - 1),
+            Point(x, y + 1),
+        )
 }
 

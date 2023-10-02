@@ -62,8 +62,8 @@ class Day14(override val isExample: Boolean = false) : Day {
         }
 
         private val points: List<Point> = lines.flatMap { e -> e.points }
-        val min = points.let { Point(it.minOf { p -> p.x }, 0) }
-        val max = points.let { Point(it.maxOf { p -> p.x }, it.maxOf { p -> p.y }) }
+        val min = Point(points.minOf { it.x }, 0)
+        val max = Point(points.maxOf { it.x }, points.maxOf { it.y })
 
         fun step(position: Point): Either<Point, Point> {
             """
@@ -94,6 +94,7 @@ class Day14(override val isExample: Boolean = false) : Day {
                         max.x -> string + "\n"
                         else -> string
                     }
+
                     if (lines.contains(p)) {
                         addNewLineOnLineEnd("#")
                     } else if (sand.contains(p)) {
