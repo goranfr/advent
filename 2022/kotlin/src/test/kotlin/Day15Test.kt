@@ -1,5 +1,6 @@
 
 import Day15.Companion.isCoveredBy
+import Day15.Companion.tuningFrequency
 import common.Point
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Nested
@@ -133,6 +134,34 @@ class Day15Test {
             )
 
         }
+
+        @Test
+        fun `tuningFrequency correct for example point`() {
+            val target = Point(x=14, y=11)
+            assertEquals(56000011, target.tuningFrequency)
+        }
+
+        @Test
+        fun `pointsOutsideRange correct for three-by-three example`() {
+            val sensor = Day15.Sensor(Point(3,3), Point(1,3))
+            val points = sensor.pointsOutsideRange().toSet()
+            val expectedPoints = setOf(
+                Point(0, 3),
+                Point(1, 2),
+                Point(1, 4),
+                Point(2, 1),
+                Point(2, 5),
+                Point(3, 0),
+                Point(3, 6),
+                Point(4, 1),
+                Point(4, 5),
+                Point(5, 2),
+                Point(5, 4),
+                Point(6, 3),
+
+            )
+            assertEquals(expectedPoints, points)
+        }
     }
 
     @Nested
@@ -155,13 +184,13 @@ class Day15Test {
         @Test
         fun `Part 2 matches example`() {
             val answer = Day15(true).part2()
-            assertEquals(-1, answer)
+            assertEquals(56000011, answer)
         }
 
         @Test
         fun `Part 2 matches input`() {
             val answer = Day15().part2()
-            assertEquals(-1, answer)
+            assertEquals(10553942650264, answer)
         }
     }
 }
